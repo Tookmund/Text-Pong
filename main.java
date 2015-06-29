@@ -3,11 +3,11 @@ import java.util.*;
 
 public class main 
 {
-   
    public static void main (String[] args) 
    {
-      
-      game Game = new game(5,5);
+      Scanner input = new Scanner(System.in);
+      // Windows console is 22x78
+      game Game = new game(22,78);
       Game.update();   
    }
 }
