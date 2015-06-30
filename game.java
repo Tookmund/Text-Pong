@@ -16,10 +16,14 @@ public class game
    */
    private static int y;
    private char ballChar = '@';
-   private char ballX;
-   private char ballY;
+   private int ballX;
+   private int ballY;
    private char paddleChar = '|';
    private int paddleSize = 3;
+   // Left Paddle Top
+   private int ltop = 1;
+   // Right Paddle Top
+   private int rtop = 1;
    public int score1 = 0;
    public int score2 = 0;
    // Ball Direction
@@ -69,9 +73,18 @@ public class game
       y = ny;
       board = new char[x][y];
       clearBoard(' ');
+      addWalls();
       setupPaddles();
-      //setupBall();
-      //begin();
+      setupBall();
+   }
+   public void loop()
+   {
+      while(true)
+      {
+         updateBall();
+         movePaddles();
+         update();
+      }
    }
    public void setupPaddles()
    {
@@ -79,31 +92,64 @@ public class game
       {
          paddleSize = 5;
       }
-      updatePaddle('L',0);
-      updatePaddle('R',0);
+      updatePaddle('L',1);
+      updatePaddle('R',1);
    }
-   public void updatePaddle(char side, int top)
+   public void movePaddles()
+   {
+      int inp = 0;
+      try
+      {
+         inp = System.in.read();
+      }
+      catch(Exception e)
+      {
+         return;
+      }
+      int olr = rtop;
+      int oll = ltop;
+      switch(inp)
+      {
+         case 'w':
+            ltop -=1;
+            break;
+         case 's':
+            ltop += 1;
+            break;
+         case 'i':
+            rtop -= 1;
+            break;
+         case 'k':
+            rtop += 1;
+            break;
+      }
+      System.out.println(ltop);
+      System.out.println(rtop);
+      updatePaddle('L',oll);
+      updatePaddle('R',olr);
+   }
+   public void updatePaddle(char side,int oldtop)
    {
       int edge = 0;
+      int top = 0;
       // Leave 1 char of space
       if (side == 'L')
       {
          edge = 1;
+         top = ltop;
       }
       else if (side == 'R')
       {
          edge = y-2;
+         top = rtop;
+      }
+      for (int i = oldtop;i < paddleSize+1;i++)
+      {
+            board[i][edge] = ' ';
       }
       for (int i = top;i < paddleSize+1;i++)
       {
-        // You can move your paddle off screen...if you really want to...
-        try 
-        {
             board[i][edge] = paddleChar;
-        }
-        catch(Exception e)
-        {
-        }
       }
    }
    public int genrn(int min, int max)
@@ -121,34 +167,6 @@ public class game
    }
    public void updateBall()
    {
-      switch(ballDir)
-      {
-         case U:
-            ballDir = D;
-            break;
-         case D:
-            ballDir = U;
-            break;
-         case L:
-            ballDir = R;
-            break;
-         case R:
-            ballDir = L;
-            break;
-         case UL:
-            ballDir = DL;
-            break;
-         case UR:
-            ballDir = DR;
-            break;
-         case DL:
-            ballDir = 
-            break;
-         case DR:
-            ballX -= 1;
-            ballY += 1;
-            break;
-      }
       if(ballX == 0)
       {
         // Player 2 scores!
@@ -166,45 +184,138 @@ public class game
          // Yay recursion!
          setupBall();
       }
-      
-      try 
-      {
-         board[ballX][ballY] = ballChar;
-      }
-      catch(Exception e)
-      {
-         switch(ballDir)
+      int nx = ballX;
+      int ny = ballY;
+      switch(ballDir)
       {
          case U:
-            ballX += 1;
+            nx += 1;
             break;
          case D:
-            ballX -= 1;
+            nx -= 1;
             break;
          case L:
-            ballY -= 1;
+            ny -= 1;
             break;
          case R:
-            ballY += 1;
+            ny += 1;
             break;
          case UL:
-            ballX += 1;
-            ballY -= 1;
+            nx += 1;
+            ny -= 1;
             break;
          case UR:
-            ballX += 1;
-            ballY += 1;
+            nx += 1;
+            ny += 1;
             break;
          case DL:
-            ballX -= 1;
-            ballY -= 1;
+            nx -= 1;
+            ny -= 1;
             break;
          case DR:
-            ballX -= 1;
-            ballY += 1;
+            nx -= 1;
+            ny += 1;
             break;
       }
+      int rd = genrn(0,1);
+      if (board[nx][ny] == '|')
+      {
+      // Hit a paddle or a wall or a ceiling    
+          switch(ballDir)
+          {
+            case U:
+               ballDir = L;
+               break;
+            case D:
+               ballDir = R;
+               break;
+            case L:
+               if( rd <= .5)
+               {
+                  ballDir = UR;
+               }
+               else
+               {
+                  ballDir = DR;
+               }
+               break;
+            case R:
+               if( rd <= .5)
+               {
+                  ballDir = DL;
+               }
+               else
+               {
+                  ballDir = UL;
+               }
+               break;
+            case UL:
+               ballDir = R;
+               break;
+            case UR:
+               ballDir = L;
+               break;
+            case DL:
+               ballDir = R;
+               break;
+            case DR:
+               ballDir = L;
+               break;
+          }
 
+      }
+      
+      else if (board[nx][ny] == '-')
+      {
+      // Hit the ceiling or floor
+         switch(ballDir)
+         {
+            case U:
+               if( rd <= .5)
+               {
+                  ballDir = DL;
+               }
+               else
+               {
+                  ballDir = DR;
+               }
+               break;
+            case D:
+               if( rd <= .5)
+               {
+                  ballDir = UL;
+               }
+               else
+               {
+                  ballDir = UR;
+               }
+               break;
+            case L:
+               break;
+            case R:
+               break;
+            case UL:
+               ballDir = DL;
+               break;
+            case UR:
+               ballDir = DR;
+               break;
+            case DL:
+               ballDir = UL;
+               break;
+            case DR:
+               ballDir = UR;
+               break;
+         }
+
+      }
+      
+      else
+      {
+         board[ballX][ballY] = ' ';
+         ballX = nx;
+         ballY = ny;
+         board[ballX][ballY] = ballChar;
       }
    }
    public void checkWinner()
@@ -256,10 +367,25 @@ public class game
          // Hope for the best...
       }
    }
-   public void update() {
+   public void update() 
+   {
       clearConsole();
       for(int i = 0; i < x; i++) {
            System.out.println(String.valueOf(board[i]));
       } 
+   }
+   public void addWalls()
+   {
+      int i;
+      for (i = 0; i < y;i++)
+      {
+         board[0][i] = '-';
+         board[x-1][i] = '-';
+      }
+      for (i = 0;i < x;i++)
+      {
+         board[i][0] = '|';
+         board[i][y-1] = '|';
+      }
    }
 }
