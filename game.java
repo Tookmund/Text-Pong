@@ -123,8 +123,6 @@ public class game
             rtop += 1;
             break;
       }
-      System.out.println(ltop);
-      System.out.println(rtop);
       updatePaddle('L',oll);
       updatePaddle('R',olr);
    }
@@ -167,16 +165,18 @@ public class game
    }
    public void updateBall()
    {
-      if(ballX == 0)
+      if(ballY == 1)
       {
         // Player 2 scores!
         score2 += 1;
+        System.out.println("+1 Player 2");
          
       }
-      else if (ballX == y-1)
+      else if (ballY == y-2)
       {
          // Player 1 scores!
          score1 += 1;
+         System.out.println("+1 Player 1");
       }
       checkWinner();
       if (ballX == 0 || ballX == y-1)
@@ -321,15 +321,15 @@ public class game
    public void checkWinner()
    {
       String wintxt = "";
-      if (score1 >= 5)
+      if (score1 >= 10)
       {
          wintxt = "Player 1 Wins!";
       }
-      else if (score2 >= 5)
+      else if (score2 >= 10)
       {
          wintxt = "Player 2 Wins!";
       }
-      if (score1 >= 5 || score2 >= 5)
+      if (score1 >= 10 || score2 >= 10)
       {
          clearBoard(' ');
          update();
