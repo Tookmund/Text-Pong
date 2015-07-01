@@ -141,13 +141,15 @@ public class game
          edge = y-2;
          top = rtop;
       }
-      for (int i = oldtop;i < paddleSize+1;i++)
+      for (int i = oldtop;i < paddleSize+oldtop;i++)
       {
             board[i][edge] = ' ';
+            System.out.println("Replaced ["+i+","+edge+"]");
       }
-      for (int i = top;i < paddleSize+1;i++)
+      for (int i = top;i < paddleSize+top;i++)
       {
             board[i][edge] = paddleChar;
+            System.out.println("Put | at ["+i+","+edge+"]");
       }
    }
    public int genrn(int min, int max)
