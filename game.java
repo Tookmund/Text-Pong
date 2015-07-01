@@ -143,13 +143,26 @@ public class game
       }
       for (int i = oldtop;i < paddleSize+oldtop;i++)
       {
-            board[i][edge] = ' ';
-            System.out.println("Replaced ["+i+","+edge+"]");
+            try
+            {
+               board[i][edge] = ' ';
+            }
+            catch(Exception e)
+            {
+            
+            }
       }
       for (int i = top;i < paddleSize+top;i++)
       {
-            board[i][edge] = paddleChar;
-            System.out.println("Put | at ["+i+","+edge+"]");
+            try
+            {
+               board[i][edge] = paddleChar;
+            }
+            catch(Exception e)
+            {
+            
+            }
+
       }
    }
    public int genrn(int min, int max)
