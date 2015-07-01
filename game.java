@@ -19,7 +19,7 @@ public class game
    private int ballX;
    private int ballY;
    private char paddleChar = '|';
-   private int paddleSize = 3;
+   private int paddleSize = 1;
    // Left Paddle Top
    private int ltop = 1;
    // Right Paddle Top
@@ -88,7 +88,15 @@ public class game
    }
    public void setupPaddles()
    {
-      if (x > 10)
+      if (x <= 3)
+      {
+         paddleSize = 1;
+      }
+      else if (x <= 5)
+      {
+         paddleSize = 2;
+      }
+      else if (x >= 10)
       {
          paddleSize = 5;
       }

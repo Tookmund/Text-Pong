@@ -19,8 +19,17 @@ public class main
       
       }
       Scanner input = new Scanner(System.in);
-      // Windows console is 22x78
-      game Game = new game(22,78);
+      game Game;
+      if (System.console() == null)
+      {
+         // JGrasp Terminal is 5x47
+         Game = new game(5,47);
+      }
+      else 
+      {
+         // Windows console is 22x78
+         Game = new game(22,78);
+      }
       Game.update();
       Game.loop();   
    }
