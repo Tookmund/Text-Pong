@@ -375,8 +375,7 @@ public class game
    {
       try
       {
-         final String os = System.getProperty("os.name");
-        if (os.contains("Windows"))
+        if (main.os.contains("Windows"))
         {
             Runtime.getRuntime().exec("cls");
         }
