@@ -1,4 +1,4 @@
-public class game 
+public class game
 {
    private char[][] board;
    /*
@@ -27,7 +27,7 @@ public class game
    public int score1 = 0;
    public int score2 = 0;
    // Ball Direction
-   
+
    /* Up
    */
    static final int U = 0;
@@ -66,8 +66,8 @@ public class game
    */
    static final int DR = 7;
    int ballDir;
-   
-   public game(int nx, int ny) 
+
+   public game(int nx, int ny)
    {
       x = nx;
       y = ny;
@@ -157,7 +157,7 @@ public class game
             }
             catch(Exception e)
             {
-            
+
             }
       }
       for (int i = top;i < paddleSize+top;i++)
@@ -168,7 +168,7 @@ public class game
             }
             catch(Exception e)
             {
-            
+
             }
 
       }
@@ -193,7 +193,7 @@ public class game
         // Player 2 scores!
         score2 += 1;
         System.out.println("+1 Player 2");
-         
+
       }
       else if (ballY == y-2)
       {
@@ -243,7 +243,7 @@ public class game
       int rd = genrn(0,1);
       if (board[nx][ny] == '|')
       {
-      // Hit a paddle or a wall or a ceiling    
+      // Hit a paddle or a wall or a ceiling
           switch(ballDir)
           {
             case U:
@@ -287,7 +287,7 @@ public class game
           }
 
       }
-      
+
       else if (board[nx][ny] == '-')
       {
       // Hit the ceiling or floor
@@ -332,7 +332,7 @@ public class game
          }
 
       }
-      
+
       else
       {
          board[ballX][ballY] = ' ';
@@ -362,9 +362,9 @@ public class game
    }
    public void clearBoard(char inp)
    {
-      for(int i = 0; i < x; i++) 
+      for(int i = 0; i < x; i++)
       {
-         for (int j = 0; j < y; j++) 
+         for (int j = 0; j < y; j++)
          {
             board[i][j] = inp;
          }
@@ -389,12 +389,12 @@ public class game
          // Hope for the best...
       }
    }
-   public void update() 
+   public void update()
    {
       clearConsole();
       for(int i = 0; i < x; i++) {
            System.out.println(String.valueOf(board[i]));
-      } 
+      }
    }
    public void addWalls()
    {
