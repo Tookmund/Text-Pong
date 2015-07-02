@@ -273,16 +273,45 @@ public class game
                }
                break;
             case UL:
-               ballDir = R;
+               if (rd <=.5)
+               {
+                  ballDir = R;
+               }
+               else
+               {
+                  ballDir = U;
+               }
                break;
             case UR:
-               ballDir = L;
+               if (rd <= .5)
+               {
+                  ballDir = L;
+               
+               }
+               else
+               {
+                  ballDir = U;
+               }
                break;
             case DL:
-               ballDir = R;
+               if (rd <= .5)
+               {
+                  ballDir = R;
+               }
+               else
+               {
+                  ballDir = D;
+               }
                break;
             case DR:
-               ballDir = L;
+               if (rd <= .5)
+               {
+                  ballDir = L;
+               }
+               else
+               {
+                  ballDir = D;
+               }
                break;
           }
 
