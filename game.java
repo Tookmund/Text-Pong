@@ -202,9 +202,10 @@ public class game
          System.out.println("+1 Player 1");
       }
       checkWinner();
-      if (ballX == 0 || ballX == y-1)
+      if (ballY == 1 || ballY == y-2)
       {
          // Yay recursion!
+         board[ballX][ballY] = ' ';
          setupBall();
       }
       int nx = ballX;
