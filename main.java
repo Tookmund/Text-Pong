@@ -10,7 +10,7 @@ public class main
       {
          System.err.println("Warning: This game was was designed to run in cmd.exe.\nYour play experience may be suboptimal.");
       }
-      System.out.println("Player 1 uses W and S to move the paddle\nPlayer 2 uses I and K to move the paddle\nReady? ");
+      System.out.println("Player 1 uses W and S to move the paddle\nPlayer 2 uses I and K to move the paddle\nYou have to press enter to advance the game\nReady? ");
       try
       {
          System.in.read();
@@ -29,7 +29,7 @@ public class main
       else
       {
          // Windows console is 22x78
-         Game = new game(22,80);
+         Game = new game(22,78);
       }
       Game.update();
       Game.loop();
