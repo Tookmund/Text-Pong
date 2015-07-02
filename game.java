@@ -84,6 +84,7 @@ public class game
          updateBall();
          movePaddles();
          update();
+         System.out.println("Player 1:"+score1+"  Player 2: "+score2+"\n");
       }
    }
    public void setupPaddles()
